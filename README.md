@@ -30,7 +30,7 @@ Open http://localhost:8080/ and press Ctrl+C in that window to stop.
 
 All text is in the HTML files. Edit the words between the tags, save, then publish.
 
-**Résumé.** Replace `assets/files/Kint-John-Libot-Resume.pdf` with a new file of the same name. If the size changes a lot, update "PDF, 100 KB" in `index.html`.
+**Résumé.** Replace `assets/files/Kint-John-Libot-Resume.pdf` with a new file of the same name. If the size changes a lot, update the "PDF, ... KB" size label in `index.html`. The editable source is `kintjohn-portfolio-sources\resume\resume.html` (in Documents); print it to PDF with Edge (see the comment at the top of that file).
 
 **Email.** Search all files for `kintlibot@gmail.com` and replace every match (links use `mailto:` plus the address; the copy button uses `data-copy="..."`).
 
