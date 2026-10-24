@@ -2,10 +2,10 @@
 # Run after changing the portrait or headline: powershell -File tools\make-graphics.ps1
 Add-Type -AssemblyName System.Drawing
 $img = Join-Path $PSScriptRoot '..\assets\img'
-$ink = [Drawing.Color]::FromArgb(20, 22, 19)
-$paper = [Drawing.Color]::FromArgb(243, 244, 240)
-$accent = [Drawing.Color]::FromArgb(43, 58, 214)
-$grey = [Drawing.Color]::FromArgb(74, 79, 73)
+$ink = [Drawing.Color]::FromArgb(242, 239, 232)
+$paper = [Drawing.Color]::FromArgb(11, 11, 10)
+$accent = [Drawing.Color]::FromArgb(214, 178, 94)
+$grey = [Drawing.Color]::FromArgb(214, 178, 94)
 
 function Save-Jpeg($bmp, $path) {
   $codec = [Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { $_.MimeType -eq 'image/jpeg' }
@@ -19,12 +19,12 @@ foreach ($size in 32, 180) {
   $bmp = New-Object Drawing.Bitmap $size, $size
   $g = [Drawing.Graphics]::FromImage($bmp)
   $g.SmoothingMode = 'AntiAlias'; $g.TextRenderingHint = 'AntiAliasGridFit'
-  $g.Clear($ink)
+  $g.Clear([Drawing.Color]::FromArgb(11, 11, 10))
   $f = New-Object Drawing.Font 'Arial', ($size * 0.62), ([Drawing.FontStyle]::Bold), ([Drawing.GraphicsUnit]::Pixel)
   $sf = New-Object Drawing.StringFormat; $sf.Alignment = 'Center'; $sf.LineAlignment = 'Center'
-  $g.DrawString('K', $f, (New-Object Drawing.SolidBrush $paper), (New-Object Drawing.RectangleF (-$size * 0.04), ($size * 0.03), $size, $size), $sf)
+  $g.DrawString('K', $f, (New-Object Drawing.SolidBrush $accent), (New-Object Drawing.RectangleF (-$size * 0.04), ($size * 0.03), $size, $size), $sf)
   $q = [int]($size * 0.13)
-  $g.FillRectangle((New-Object Drawing.SolidBrush ([Drawing.Color]::FromArgb(91, 106, 255))), ($size - $q - [int]($size * 0.1)), ($size - $q - [int]($size * 0.18)), $q, $q)
+  $g.DrawRectangle((New-Object Drawing.Pen $accent, ([math]::Max(1, $size / 24))), [int]($size * 0.06), [int]($size * 0.06), [int]($size * 0.88), [int]($size * 0.88))
   $name = if ($size -eq 32) { 'favicon-32.png' } else { 'apple-touch-icon.png' }
   $bmp.Save((Join-Path $img $name), [Drawing.Imaging.ImageFormat]::Png)
   $g.Dispose(); $bmp.Dispose()
@@ -45,11 +45,11 @@ $portrait.Dispose()
 $g.DrawLine((New-Object Drawing.Pen $ink, 2), 64, 96, 736, 96)
 $small = New-Object Drawing.Font 'Arial', 26, ([Drawing.FontStyle]::Bold), ([Drawing.GraphicsUnit]::Pixel)
 $g.DrawString('Kint John Libot', $small, (New-Object Drawing.SolidBrush $grey), 60, 120)
-$big = New-Object Drawing.Font 'Arial', 64, ([Drawing.FontStyle]::Bold), ([Drawing.GraphicsUnit]::Pixel)
-$g.DrawString("Marketing & social`nmedia for a photography`neducation brand.", $big, (New-Object Drawing.SolidBrush $ink), (New-Object Drawing.RectangleF 56, 168, 700, 300))
+$big = New-Object Drawing.Font 'Arial', 56, ([Drawing.FontStyle]::Bold), ([Drawing.GraphicsUnit]::Pixel)
+$g.DrawString("Marketing and executive`nsupport, from the first`npost to the final invoice.", $big, (New-Object Drawing.SolidBrush $ink), (New-Object Drawing.RectangleF 56, 168, 700, 300))
 $body = New-Object Drawing.Font 'Arial', 24, ([Drawing.FontStyle]::Regular), ([Drawing.GraphicsUnit]::Pixel)
 $g.FillRectangle((New-Object Drawing.SolidBrush $accent), 64, 506, 4, 64)
-$g.DrawString("Social content, blog lessons, and ActiveCampaign email`nfor The Photo Mentorship. Portfolio and resume.", $body, (New-Object Drawing.SolidBrush $ink), 84, 506)
+$g.DrawString("Marketing Virtual Assistant & Executive Assistant.`nWeb, email, e-commerce, events. Portfolio and resume.", $body, (New-Object Drawing.SolidBrush $ink), 84, 506)
 Save-Jpeg $bmp (Join-Path $img 'og-image.jpg')
 $g.Dispose(); $bmp.Dispose()
 'done'
