@@ -57,6 +57,8 @@ This writes `assets/img/new-project-cover-640.jpg` and `-1280.jpg`. Use them lik
 
 **Change colours or fonts.** Edit the variables at the top of `assets/css/site.css` (see the colour table below).
 
+**After changing the CSS or JS file**, raise the version number in every HTML file (search for `site.css?v=` and `site.js?v=`, e.g. `?v=2` → `?v=3`). Browsers cache these files for about 10 minutes, and the new number makes visitors get the update right away.
+
 ## Publish changes (GitHub Pages)
 
 The live site is built from the `main` branch of the GitHub repository. Any change pushed there goes live within a minute or two.
